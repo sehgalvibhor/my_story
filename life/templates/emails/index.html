@@ -2,12 +2,21 @@
 <html>
 
     <head>
-        <title>Welcome Page</title>
+        <title>Login Page</title>
     </head>
 
     <body>
         <h1>WELCOME</h1>
-        Login Page <strong>{{ boldmessage }}</strong><br />
+        <form action="/emails/" method="post">
+        	{% csrf_token %}
+    		<label for="your_name">Your name: </label>
+    		<input id="your_name" type="text" name="your_name">
+    		<label for="gmail_id">Your Gmail ID: </label>
+    		<input id="gmail_id" type="text" name="gmail_id">
+    		<label for="gmail_pass">Your Gmail password: </label>
+    		<input id="gmail_pass" type="password" name="gmail_pass">
+    		<input type="submit" value="OK">
+		</form>
     </body>
 
 </html>
