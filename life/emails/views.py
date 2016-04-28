@@ -13,18 +13,24 @@ def index(request):
         form = NameForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-        	try:
-    			M.login(request.POST.get('gmail_id',''),request.POST.get('gmail_pass',''))
-    			rv, mailboxes = M.list()
-    			if rv == 'OK':
-					print "Mailboxes:"
-					print mailboxes
+            try:
+                M.login(request.POST.get('gmail_id',''),request.POST.get('gmail_pass',''))
+                rv, mailboxes = M.list()
+                M.select("INBOX")
+                if rv == 'OK':
+                    result,data = M.uid('search', None, "ALL")
+                    #result,mail = M.uid('fetch', '4' ,'(RFC822)')
 
- 	else:
-        form = NameForm()
-
+            except Exception as e:
+                print e
+        else:
+            form = NameForm()
+    else:
+        form=NameForm()
     return render(request, 'emails/index.html', {'form': form})
 
 def thanks(request):
 
 	return render(request, 'emails/thanks.html')
+
+
